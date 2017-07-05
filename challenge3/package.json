@@ -1,0 +1,10 @@
+{
+  "name": "pallavicode",
+  "version": "1.0.0",
+  "description": "Demo REST API with Node",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "express": "3.x"
+  }
+}

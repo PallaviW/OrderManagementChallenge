@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fees</title>
+</head>
+<body>
+
+
+<h2>Fees Details</h2>
+
+<div id="orderDetails"></div>
+
+
+<script>
+
+var orders =
+[
+  {
+    "order_date": "1/11/2015",
+    "order_number": "20150111000001",
+    "order_items": [
+      {
+        "order_item_id": 1,
+        "type": "Real Property Recording",
+        "pages": 3
+      },
+      {
+        "order_item_id": 2,
+        "type": "Real Property Recording",
+        "pages": 1
+      }
+    ]
+  },
+  {
+    "order_date": "1/17/2015",
+    "order_number": "20150117000001",
+    "order_items": [
+      {
+        "order_item_id": 3,
+        "type": "Real Property Recording",
+        "pages": 2
+      },
+      {
+        "order_item_id": 4,
+        "type": "Real Property Recording",
+        "pages": 20
+      }
+    ]
+  },
+  {
+    "order_date": "1/18/2015",
+    "order_number": "20150118000001",
+    "order_items": [
+      {
+        "order_item_id": 5,
+        "type": "Real Property Recording",
+        "pages": 5
+      },
+      {
+        "order_item_id": 6,
+        "type": "Birth Certificate",
+        "pages": 1
+      }
+    ]
+  },
+  {
+    "order_date": "1/23/2015",
+    "order_number": "20150123000001",
+    "order_items": [
+      {
+        "order_item_id": 7,
+        "type": "Birth Certificate",
+        "pages": 1
+      },
+      {
+        "order_item_id": 8,
+        "type": "Birth Certificate",
+        "pages": 1
+      }
+    ]
+  }
+]
+
+var fees =
+[
+  {
+    "order_item_type": "Real Property Recording",
+    "fees": [
+      {
+        "name": "Recording (first page)",
+        "amount": "26.00",
+        "type": "flat"
+      },
+      {
+        "name": "Recording (additional pages)",
+        "amount": "1.00",
+        "type": "per-page"
+      }
+    ],
+    "distributions": [
+      {
+        "name": "Recording Fee",
+        "amount": "5.00"
+      },
+      {
+        "name": "Records Management and Preservation Fee",
+        "amount": "10.00"
+      },
+      {
+        "name": "Records Archive Fee",
+        "amount": "10.00"
+      },
+      {
+        "name": "Courthouse Security",
+        "amount": "1.00"
+      }
+    ]
+  },
+  {
+    "order_item_type": "Birth Certificate",
+    "fees": [
+      {
+        "name": "Birth Certificate Fees",
+        "amount": "23.00",
+        "type": "flat"
+      }
+    ],
+    "distributions": [
+      {
+        "name": "County Clerk Fee",
+        "amount": "20.00"
+      },
+      {
+        "name": "Vital Statistics Fee",
+        "amount": "1.00"
+      },
+      {
+        "name": "Vital Statistics Preservation Fee",
+        "amount": "1.00"
+      }
+    ]
+  }
+]
+
+for(var i = 0 ; i<= orders.length; i++){
+
+	document.write("<p>Order ID:" + orders[i].order_number +"<br>");
+     var orderTotal = 0;
+ for(var k = 0 ; k <  orders[i].order_items.length ; k++){
+
+			if(orders[i].order_items[k].type == "Real Property Recording"){
+                  
+          document.write("Order item : $"+(Math.round(26.00) + (orders[i].order_items[k].pages * Math.round(1.00)))+ "<br>");
+          
+         orderTotal = orderTotal + (Math.round(26.00) + (orders[i].order_items[k].pages * Math.round(1.00)));
+          
+          }else{
+          	
+            document.write("Order item : $"+ Math.round(23.00) +"<br>");
+            orderTotal = orderTotal + Math.round(23.00);
+            
+          }
+          
+          if(k == (orders[i].order_items.length - 1)){
+           document.write("Order total: $" + orderTotal);
+           }
+          
+        }           
+        
+       
+}
+
+
+  
+
+
+</script>
+</body>
+</html>
+
+

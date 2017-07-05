@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Distributions</title>
+</head>
+<body>
+<h2>Distributions Details</h2>
+
+<script>
+var orders =
+[
+  {
+    "order_date": "1/11/2015",
+    "order_number": "20150111000001",
+    "order_items": [
+      {
+        "order_item_id": 1,
+        "type": "Real Property Recording",
+        "pages": 3
+      },
+      {
+        "order_item_id": 2,
+        "type": "Real Property Recording",
+        "pages": 1
+      }
+    ]
+  },
+  {
+    "order_date": "1/17/2015",
+    "order_number": "20150117000001",
+    "order_items": [
+      {
+        "order_item_id": 3,
+        "type": "Real Property Recording",
+        "pages": 2
+      },
+      {
+        "order_item_id": 4,
+        "type": "Real Property Recording",
+        "pages": 20
+      }
+    ]
+  },
+  {
+    "order_date": "1/18/2015",
+    "order_number": "20150118000001",
+    "order_items": [
+      {
+        "order_item_id": 5,
+        "type": "Real Property Recording",
+        "pages": 5
+      },
+      {
+        "order_item_id": 6,
+        "type": "Birth Certificate",
+        "pages": 1
+      }
+    ]
+  },
+  {
+    "order_date": "1/23/2015",
+    "order_number": "20150123000001",
+    "order_items": [
+      {
+        "order_item_id": 7,
+        "type": "Birth Certificate",
+        "pages": 1
+      },
+      {
+        "order_item_id": 8,
+        "type": "Birth Certificate",
+        "pages": 1
+      }
+    ]
+  }
+]
+
+var fees =
+[
+  {
+    "order_item_type": "Real Property Recording",
+    "fees": [
+      {
+        "name": "Recording (first page)",
+        "amount": "26.00",
+        "type": "flat"
+      },
+      {
+        "name": "Recording (additional pages)",
+        "amount": "1.00",
+        "type": "per-page"
+      }
+    ],
+    "distributions": [
+      {
+        "name": "Recording Fee",
+        "amount": "5.00"
+      },
+      {
+        "name": "Records Management and Preservation Fee",
+        "amount": "10.00"
+      },
+      {
+        "name": "Records Archive Fee",
+        "amount": "10.00"
+      },
+      {
+        "name": "Courthouse Security",
+        "amount": "1.00"
+      }
+    ]
+  },
+  {
+    "order_item_type": "Birth Certificate",
+    "fees": [
+      {
+        "name": "Birth Certificate Fees",
+        "amount": "23.00",
+        "type": "flat"
+      }
+    ],
+    "distributions": [
+      {
+        "name": "County Clerk Fee",
+        "amount": "20.00"
+      },
+      {
+        "name": "Vital Statistics Fee",
+        "amount": "1.00"
+      },
+      {
+        "name": "Vital Statistics Preservation Fee",
+        "amount": "1.00"
+      }
+    ]
+  }
+]
+
+var recordingFee = 0;
+var RMPFee=0;
+var RAFee=0;
+var CSFee = 0;
+var CCFee = 0;
+var VSFee =0;
+var VSPFee =0;
+var OtherFee=0;
+var otherFundValue = 0;
+var totalOtherFund = 0;
+var RF = "Recording Fee";
+var RMP = "Records Management and Preservation Fee";
+var RA = "Records Archive Fee";
+var CS= "Courthouse Security";
+var CC = "County Clerk Fee";
+var VS = "Vital Statistics Fee";
+var VSP = "Vital Statistics Preservation Fee";
+var other ="Other";
+
+
+for(var i = 0 ; i<= orders.length; i++){
+
+var orderItem = [];
+  document.write("<p>Order ID:" + orders[i].order_number +"<br>");
+    
+     for(var k = 0 ; k <  orders[i].order_items.length ; k++){
+     
+                if(orders[i].order_items[k].type == "Real Property Recording"){
+                     if(orderItem.indexOf("Real Property Recording") > -1)
+                     {
+                        break;
+                     }
+                     for(var l=0;l<fees[0].distributions.length;l++){
+                        
+                           document.write("Fund - "+fees[0].distributions[l].name+":     $"+fees[0].distributions[l].amount+" </br>");
+
+                           if(fees[0].distributions[l].name == RF){
+                             recordingFee = recordingFee + Math.round(fees[0].distributions[l].amount);
+                           }
+                           if(fees[0].distributions[l].name == RMP){
+                             RMPFee = RMPFee + Math.round(fees[0].distributions[l].amount);
+                           }
+                           if(fees[0].distributions[l].name == RA){
+                             RAFee = RAFee + Math.round(fees[0].distributions[l].amount);
+                           }
+                           if(fees[0].distributions[l].name == CS){
+                             CSFee = CSFee + Math.round(fees[0].distributions[l].amount);
+                           }
+
+                           orderItem.push(orders[i].order_items[k].type);
+                      }
+                }
+                else if(orders[i].order_items[k].type == "Birth Certificate"){
+                
+                     if(orderItem.indexOf("Birth Certificate") > -1)
+                     {
+                        break;
+                     }
+                     for(var m=0;m<fees[1].distributions.length;m++){
+
+                          document.write("Fund - "+fees[1].distributions[m].name+": $"+fees[1].distributions[m].amount+" </br>");
+                         
+                          OtherFee = OtherFee + Math.round(fees[1].distributions[m].amount);
+                       
+                          if(m == (fees[1].distributions.length -1) ){
+                          
+                          if(OtherFee < 23){
+                             otherFundValue = (23-OtherFee);
+                             document.write("Fund - Other: $"+ otherFundValue);
+                             totalOtherFund = totalOtherFund + otherFundValue;
+                           }else{
+                           
+                           otherFundValue =(46-OtherFee);
+                            document.write("Fund - Other: $"+ otherFundValue);
+                              totalOtherFund = totalOtherFund + otherFundValue;
+                           }
+                      }
+                      
+                     if(fees[1].distributions[m].name == CC){
+                       CCFee = CCFee + Math.round(fees[1].distributions[m].amount);
+                     }
+                     if(fees[1].distributions[m].name == VS){
+                       VSFee = VSFee + Math.round(fees[1].distributions[m].amount);
+                     }
+                     if(fees[1].distributions[m].name == VSP){
+                       VSPFee = VSPFee + Math.round(fees[1].distributions[m].amount);
+                     }
+                      
+
+                     orderItem.push(orders[i].order_items[k].type);
+                
+                }
+                
+              }   
+             
+    }
+    
+}
+  
+
+
+</script></br>
+<div style="padding-top: 1em;">Total distributions:</div>
+
+<script>
+
+document.write("Fund - "+RF+": $"+ recordingFee +"</br>");
+document.write("Fund - "+RMP+": $"+ RMPFee+"</br>");
+document.write("Fund - "+RA+": $"+ RAFee+"</br>");
+document.write("Fund - "+CS+": $"+ CSFee+"</br>");
+document.write("Fund - "+CC+": $"+ CCFee+"</br>");
+document.write("Fund - "+VS+": $"+ VSFee+"</br>");
+document.write("Fund - "+VSP+": $"+ VSPFee+"</br>");
+document.write("Fund - "+other+": $"+ totalOtherFund+"</br>");
+
+</script>
+</body>
+</html>
+
+
+
+
